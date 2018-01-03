@@ -1,0 +1,24 @@
+---
+- name: use all module here
+  hosts: web
+  become: yes
+  remote_user: root
+  vars:
+    var1: "shyam"
+  tasks:
+     - name: create a file
+       file: path=/tmp/test_file state=touch
+     - name: add some content
+       copy: content="this is the first line" dest=/tmp/test_file 
+     - name: append the file
+       lineinfile: path=/tmp/test_file  line="this is chetan"
+     - name: replace a text
+       replace: path=/tmp/test_file  regexp=chetan replace=grover
+     - name: use a command
+       command: hostname
+       register: host
+     - name: print the hostname
+       debug:
+          msg: "the server name is {{host.stdout}}"
+     - name: use the var value
+       debug: var=var1

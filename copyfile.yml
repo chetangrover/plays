@@ -1,0 +1,16 @@
+---
+- name: copy the files
+  hosts: web
+  become: yes
+  tasks:
+     - name: create directory
+       file: path={{item}} state=directory
+       with_items:
+              - "/tmp/dir1"
+              - "/tmp/dir2"
+              - "/tmp/dir3"
+ 
+     - name: copy the file with 
+       copy: src="{{item}}" dest=/tmp/dir1/
+       with_fileglob: 
+               - "/tmp/dir1/*"

@@ -1,0 +1,8 @@
+---
+- name: copy the file/ directory
+  hosts: web
+  become: yes
+  tasks:
+    - name: copy the files
+      copy: src=/tmp/dir  dest=/tmp/ directory_mode=yes
+               

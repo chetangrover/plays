@@ -1,0 +1,22 @@
+---
+- name: play with loop
+  hosts: web
+  become: yes
+  vars:
+     user:
+        bob:
+          name: BOB
+          Address: america
+        Alice:
+          name: ALICE
+          Address: India
+  tasks:
+    - name: create users
+      user: name={{item.nme}} comment={{item.comm}}
+      with_items:
+              - {nme: user1, comm: comm1}
+              - {nme: user2, comm: comm2}
+    - name: user creation another
+      debug: 
+          msg: "print the user name {{item.key}}  and {{item.value.name}} and {{item.value.Address}}"
+      with_dict:  "{{user}}"
